@@ -13,7 +13,7 @@ import ItemDetails, { Record } from '../item-details'
 // const {getPerson, getPlanet, getStarship, getPersonImage, getStarshipImage, getPlanetImage} =  swapiService
 
 import { SwapiServiceConsumer } from '../swapi-service-contex'
-
+// использование SwapiServiceConsumer выглядит громоздко. можно использовать hoc
 
 
 const PersonDetails = ({itemId}) => {
@@ -92,4 +92,4 @@ const StarshipDetails = () => {
     );
 }
 
-export { PersonDetails, PlanetDetails, StarshipDetails }
+//export { PersonDetails, PlanetDetails, StarshipDetails }
