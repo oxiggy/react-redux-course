@@ -5,15 +5,17 @@ import RandomPlanet from '../random-planet';
 import ErrorButton from '../error-button'
 import ErrorIndicator from '../error-indicator'
 import ErrorBoundry from '../error-boundry'
-import ItemDetails from '../item-details'
-import {Record} from '../item-details/item-details'
+//import ItemDetails from '../item-details'
+//import {Record} from '../item-details/item-details'
 
+import { SwapiServiceProvider } from '../swapi-service-contex'
 import SwapiService from '../../services/swapi-service'
 import DummySwapiService from '../../services/dummy-swapi-service'
 
-import { SwapiServiceProvider } from '../swapi-service-contex'
+//import { PersonDetails, PlanetDetails, StarshipDetails, PersonList, PlanetList, StarshipList } from '../sw-components'
+//import Row from '../row'
+import { PeoplePage, StarshipPage, PlanetPage } from '../pages'
 
-import { PersonDetails, PlanetDetails, StarshipDetails, PersonList, PlanetList, StarshipList } from '../sw-components'
 
 
 export default class App extends React.Component {
@@ -61,7 +63,6 @@ export default class App extends React.Component {
         if(this.state.hasError) { return <ErrorIndicator/> }
 
         const { showRandomPlanet } = this.state;
-        //const { getPerson, getStarship, getPersonImage, getStarshipImage } = this.swapiService
 
         return (
             <>
@@ -75,15 +76,15 @@ export default class App extends React.Component {
                             Toggle Random Planet
                         </button>
                         <ErrorButton/>
-                        <PersonDetails itemId={3}/>
-                        <PlanetDetails itemId={3}/>
-                        <StarshipDetails itemId={3}/>
 
-                        <PersonList/>
-                        <StarshipList/>
-                        <PlanetList/>
+                        <PeoplePage/>
+                        <StarshipPage/>
+                        <PlanetPage/>
+
                     </SwapiServiceProvider>
                 </ErrorBoundry>
+
+
 
 
 
