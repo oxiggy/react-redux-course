@@ -5,29 +5,35 @@ import RandomPlanet from '../random-planet';
 import ErrorButton from '../error-button'
 import ErrorIndicator from '../error-indicator'
 import ErrorBoundry from '../error-boundry'
-import SwapiService from '../../services/swapi-service'
-import DummySwapiService from '../../services/dummy-swapi-service'
-import Row from '../row'
-
 import ItemDetails from '../item-details'
 import {Record} from '../item-details/item-details'
+
+import SwapiService from '../../services/swapi-service'
+import DummySwapiService from '../../services/dummy-swapi-service'
 
 import { SwapiServiceProvider } from '../swapi-service-contex'
 
 import { PersonDetails, PlanetDetails, StarshipDetails, PersonList, PlanetList, StarshipList } from '../sw-components'
 
 
-
-
 export default class App extends React.Component {
 
-    swapiService= new SwapiService();
-    // swapiService= new DummySwapiService();
-
     state= {
-        selectedPerson: 1,
         showRandomPlanet: true,
-        hasError: false
+        hasError: false,
+        swapiService: new DummySwapiService()
+    }
+
+    onServiceChange = () => {
+        // зависим от предыдущего состояния = передаем функцию
+        this.setState( ({swapiService}) => {
+            const Service = swapiService instanceof SwapiService ?
+                DummySwapiService : SwapiService;
+
+            return {
+                swapiService: new Service()
+            }
+        })
     }
 
     toggleRandomPlanet = () => {
@@ -37,8 +43,6 @@ export default class App extends React.Component {
             }
         })
     }
-
-
 
     componentDidCatch(error, errorInfo) {
         // компоненты, содержащие componentDidCatch, называютяс эррор-баундри
@@ -62,8 +66,8 @@ export default class App extends React.Component {
         return (
             <>
                 <ErrorBoundry>
-                    <SwapiServiceProvider value={this.swapiService}>
-                        <Header />
+                    <SwapiServiceProvider value={this.state.swapiService}>
+                        <Header onServiceChange={this.onServiceChange} />
                         {showRandomPlanet && <RandomPlanet />}
                         <button
                             className="toggle-planet btn btn-warning btn-lg"

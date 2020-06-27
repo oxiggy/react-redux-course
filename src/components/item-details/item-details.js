@@ -29,7 +29,10 @@ export default class ItemDetails extends Component {
     componentDidUpdate(prevProps) {
         // если мы в DidUpdate запускаем действия, которые приведут к setState,
         // нужно обернуть код в условие, чтобы не уйти в вечный цикл обновления
-        if (this.props.itemId != prevProps.itemId) {
+        if (this.props.itemId != prevProps.itemId ||
+            this.props.getData != prevProps.getData ||
+            this.props.getImageUrl != prevProps.getImageUrl
+        ) {
             this.updateItem()
         }
     }
