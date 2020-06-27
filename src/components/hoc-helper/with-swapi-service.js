@@ -8,7 +8,9 @@ const withSwapiService = (Wrapped) => {
             <SwapiServiceConsumer>
                 {
                     (swapiService) => {
-                        <Wrapped {...props} swapiService={swapiService}/>
+                        return (
+                            <Wrapped {...props} swapiService={swapiService}/>
+                        )
                     }
                 }
             </SwapiServiceConsumer>

@@ -7,7 +7,7 @@ import { SwapiServiceConsumer } from '../swapi-service-contex'
 
 
 
-const PlanetDetails = () => {
+const PlanetDetails = ({itemId}) => {
     return (
         <SwapiServiceConsumer>
             {

@@ -5,7 +5,7 @@ import { SwapiServiceConsumer } from '../swapi-service-contex'
 // использование SwapiServiceConsumer выглядит громоздко. можно использовать hoc
 
 
-const StarshipDetails = () => {
+const StarshipDetails = ({itemId}) => {
     return (
         <SwapiServiceConsumer>
             {
