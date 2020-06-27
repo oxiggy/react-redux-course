@@ -1,14 +1,10 @@
 import React from 'react'
 import ItemList from '../item-list'
-import withData from '../hoc-helper/with-data'
-import SwapiService from '../../services/swapi-service'
+import { withData, withSwapiService } from '../hoc-helper'
 
-const swapiService = new SwapiService()
-const {
-    getAllPeople,
-    getAllPlanets,
-    getAllStarships
-} = swapiService
+///import SwapiService from '../../services/swapi-service'
+///const swapiService = new SwapiService()
+///const {getAllPeople, getAllPlanets, getAllStarships} = swapiService
 
 
 // компонеты высшего порядка оборачивают компоненты и могут взять на себя
@@ -25,22 +21,44 @@ const withChildFunction = (Wrapped, fn) => {
     }
 }
 
-const ListWithChildren = withChildFunction(
-    ItemList,
-    // второй аргумент: рендер-функция в itemlist
-    ({name}) => <span>{name}</span>
-)
 const renderName = ({name}) => <span>{name}</span>
 const renderModelAndName = ({model, name}) => <span>{name} ({model})</span>
 
-const PersonList = withData(
-                        ListWithChildren,
-                        getAllPeople)
-const PlanetList = withData(
-                        withChildFunction(ItemList, renderName),
-                        getAllPlanets)
-const StarshipList = withData(
-                        withChildFunction(ItemList, renderModelAndName),
-                        getAllStarships)
+const mapPersonMethodsToProps = (swapiService) => {
+    return { getData: swapiService.getAllPeople}
+}
+const mapPlanetMethodsToProps = (swapiService) => {
+    return { getData: swapiService.getAllPlanets}
+}
+const mapStarshipMethodsToProps = (swapiService) => {
+    return { getData: swapiService.getAllStarships}
+}
+
+const PersonList = withSwapiService(  withData(withChildFunction(ItemList, renderName)),  mapPersonMethodsToProps)
+const PlanetList = withSwapiService(  withData(withChildFunction(ItemList, renderName)),  mapPlanetMethodsToProps)
+const StarshipList = withSwapiService(  withData(withChildFunction(ItemList, renderModelAndName)),  mapStarshipMethodsToProps)
 
 export { PersonList, PlanetList, StarshipList }
+
+
+
+
+/// рефакторинг. в withData больше не нужно передавать функцию в явном виде.
+/// мы её получим из контекста (и таи же размапим)
+//const ListWithChildren = withChildFunction(
+//    ItemList,
+//    // второй аргумент: рендер-функция в itemlist
+//    ({name}) => <span>{name}</span>
+//)
+//const renderName = ({name}) => <span>{name}</span>
+//const renderModelAndName = ({model, name}) => <span>{name} ({model})</span>
+//
+//const PersonList = withData(
+//                        ListWithChildren,
+//                        getAllPeople)
+//const PlanetList = withData(
+//                        withChildFunction(ItemList, renderName),
+//                        getAllPlanets)
+//const StarshipList = withData(
+//                        withChildFunction(ItemList, renderModelAndName),
+//                        getAllStarships)

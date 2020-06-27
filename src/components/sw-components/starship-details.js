@@ -1,35 +1,30 @@
 import React from 'react'
 import ItemDetails, { Record } from '../item-details'
 
-import { SwapiServiceConsumer } from '../swapi-service-contex'
+//import { SwapiServiceConsumer } from '../swapi-service-contex'
 // использование SwapiServiceConsumer выглядит громоздко. можно использовать hoc
+import { withSwapiService } from '../hoc-helper'
 
 
-const StarshipDetails = ({itemId}) => {
+const StarshipDetails = (props) => {
     return (
-        <SwapiServiceConsumer>
-            {
-                ({getStarship, getStarshipImage}) => {
-                    return (
-                        <ItemDetails
-                            itemId={itemId}
-                            getData={getStarship}
-                            getImageUrl={getStarshipImage}
-                        >
-                            <Record field='model' label="model"/>
-                            <Record field='manufacturer' label="Manufacturer"/>
-                            <Record field='costInCredits' label="Cost In Credits"/>
-                            <Record field='lenght' label="Lenght"/>
-                            <Record field='crew' label="Crew"/>
-                            <Record field='passengers' label="Passengers"/>
-                            <Record field='cargoCapacity' label="Cargo Capacity"/>
-                        </ItemDetails>
-                    )
-                }
-            }
-        </SwapiServiceConsumer>
-
-    );
+        <ItemDetails {...props}>
+            <Record field='model' label="model"/>
+            <Record field='manufacturer' label="Manufacturer"/>
+            <Record field='costInCredits' label="Cost In Credits"/>
+            <Record field='lenght' label="Lenght"/>
+            <Record field='crew' label="Crew"/>
+            <Record field='passengers' label="Passengers"/>
+            <Record field='cargoCapacity' label="Cargo Capacity"/>
+        </ItemDetails>
+    )
 }
 
-export default StarshipDetails
+const mapMethodsToProps = (swapiService) => {
+    return {
+        getData: swapiService.getStarship,
+        getImageUrl: swapiService.getStarshipImage
+    }
+}
+
+export default withSwapiService(StarshipDetails, mapMethodsToProps)
