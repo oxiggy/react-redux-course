@@ -36,11 +36,12 @@ export default class RandomPlanet extends Component {
 //    }
 
     componentDidMount() {
+        const { updateInterval } = this.props;
         // компонент > рендер помещает верстку в дом > componentDidMount
         // дом полностью создан, сторонние библиотеки могут начать свою инициализацию, используя дом-элементы
         console.log('RandomPlanet componentDidMount')
         this.updatePlanet();
-        this.interval = setInterval(() => this.updatePlanet(), 1500)
+        this.interval = setInterval(() => this.updatePlanet(), updateInterval)
     }
 
     componentWillUnmount() { // когда компонент удаляется
@@ -110,7 +111,24 @@ export default class RandomPlanet extends Component {
 
         );
     }
+
+//   static defaultProps = {
+//       updateInterval: 10000
+//   }
 }
+
+RandomPlanet.defaultProps = {
+    updateInterval: 10000
+}
+RandomPlanet.propTypes = {
+    updateInterval: (props, propName, componentName) => {
+        const value = props[propName] // получили значение, которое нам передал пользователь
+
+        if( typeof value === 'number' && !isNaN(value)) { return null;}
+        return new TypeError(`${componentName}: ${propName} must be number`)
+    }
+}
+
 
 const PlanetView = ({ planet }) => {
     const  { id, name, population, rotationPeriod, diameter } = planet
