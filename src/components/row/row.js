@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const Row = ({left, right}) => {
     return (
@@ -11,6 +12,13 @@ const Row = ({left, right}) => {
             </div>
         </div>
     )
+}
+
+Row.propTypes = {
+    left: PropTypes.node,
+    right: PropTypes.node
+    // element работает только с реакт-элементами,
+    // но Row работает и с числами, и со строками
 }
 
 export default Row;

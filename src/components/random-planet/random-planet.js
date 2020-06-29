@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 
 import './random-planet.css';
 import SwapiService from '../../services/swapi-service'
@@ -121,12 +122,12 @@ RandomPlanet.defaultProps = {
     updateInterval: 10000
 }
 RandomPlanet.propTypes = {
-    updateInterval: (props, propName, componentName) => {
-        const value = props[propName] // получили значение, которое нам передал пользователь
-
-        if( typeof value === 'number' && !isNaN(value)) { return null;}
-        return new TypeError(`${componentName}: ${propName} must be number`)
-    }
+    updateInterval: PropTypes.number.isRequired // .isRequired не сработает, потому что есть defaultProps значение
+    //updateInterval: (props, propName, componentName) => {
+    //    const value = props[propName] // получили значение, которое нам передал пользователь
+    //    if( typeof value === 'number' && !isNaN(value)) { return null;}
+    //    return new TypeError(`${componentName}: ${propName} must be number`)
+    //}
 }
 
 
