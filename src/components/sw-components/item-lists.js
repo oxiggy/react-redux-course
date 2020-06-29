@@ -11,7 +11,7 @@ import { withData, withSwapiService } from '../hoc-helper'
 // один аспект из аспектов  его работы
 // сделаем такой для определения рендер-функции
 
-const withChildFunction = (Wrapped, fn) => {
+const withChildFunction = (fn) => (Wrapped) => {
     return (props) => {
         return (
             <Wrapped {...props}>
@@ -34,9 +34,26 @@ const mapStarshipMethodsToProps = (swapiService) => {
     return { getData: swapiService.getAllStarships}
 }
 
-const PersonList = withSwapiService(  withData(withChildFunction(ItemList, renderName)),  mapPersonMethodsToProps)
-const PlanetList = withSwapiService(  withData(withChildFunction(ItemList, renderName)),  mapPlanetMethodsToProps)
-const StarshipList = withSwapiService(  withData(withChildFunction(ItemList, renderModelAndName)),  mapStarshipMethodsToProps)
+//const PersonList = withSwapiService(  withData(withChildFunction(ItemList, renderName)),  mapPersonMethodsToProps)
+//const PlanetList = withSwapiService(  withData(withChildFunction(ItemList, renderName)),  mapPlanetMethodsToProps)
+//const StarshipList = withSwapiService(  withData(withChildFunction(ItemList, renderModelAndName)),  mapStarshipMethodsToProps)
+
+const PersonList = withSwapiService(mapPersonMethodsToProps)(
+    withData(
+        withChildFunction(renderName)(
+            ItemList)) )
+const PlanetList = withSwapiService (mapPlanetMethodsToProps)(
+    withData(
+        withChildFunction(renderName)(
+            ItemList
+        )))
+const StarshipList = withSwapiService(mapStarshipMethodsToProps)(
+    withData(
+        withChildFunction(renderModelAndName)(
+            ItemList
+        )
+    )
+)
 
 export { PersonList, PlanetList, StarshipList }
 

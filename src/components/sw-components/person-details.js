@@ -56,4 +56,4 @@ const mapMethodsToProps = (swapiService) => {
 /// мы можем передать эту функцию в hoc withD... и тогда мы будем получать нужные нам свойства.
 /// деструктуризация не нужна.
 
-export default withSwapiService(PersonDetails, mapMethodsToProps)
+export default withSwapiService(mapMethodsToProps)(PersonDetails)
