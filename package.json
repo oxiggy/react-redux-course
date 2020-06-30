@@ -1,0 +1,9 @@
+{
+	"name": "react-redux-course",
+	"private": true,
+	"workspaces": ["packages/*"],
+	"scripts": {
+		"second": "yarn workspace second start",
+		"third": "yarn workspace third start"
+	}
+}

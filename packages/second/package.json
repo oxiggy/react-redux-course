@@ -1,5 +1,5 @@
 {
-  "name": "second-app-redux",
+  "name": "@react-redux-course/second",
   "version": "0.1.0",
   "proxy": "https://swapi.dev/",
   "private": true,
