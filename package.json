@@ -3,7 +3,7 @@
 	"private": true,
 	"workspaces": ["packages/*"],
 	"scripts": {
-		"second": "yarn workspace second start",
-		"third": "yarn workspace third start"
+		"second": "yarn workspace @react-redux-course/second start",
+		"third": "yarn workspace @react-redux-course/third start"
 	}
 }
