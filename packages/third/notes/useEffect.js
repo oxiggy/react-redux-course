@@ -46,8 +46,8 @@ const HookCounter= ({value}) => {
         // работает примерно как componentWillUnmount, но срабатывает и тогда,
         // когда нужно запустить след.эффект
     }, [value])
-            /// итог: useEffect отличается от методов жизненного цикла.
-            /// заставляет думать о том, как реагировать на изменение пропов
+    /// итог: useEffect отличается от методов жизненного цикла.
+    /// заставляет думать о том, как реагировать на изменение пропов
 
 
     return <p> {value} </p>
@@ -74,6 +74,6 @@ class ClassCounter extends Component {
 
 ReactDOM.render(
     <App />,
-  document.getElementById('root')
+    document.getElementById('root')
 );
 
